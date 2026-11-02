@@ -41,6 +41,9 @@ def _esc(t):
 def _inline(t):
     t = _esc(t)
     t = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", t)
+    # [文字](链接) -> <a>；放在转义之后，href 里的 & 已是 &amp;，符合 HTML 规范
+    t = re.sub(r"\[([^\]]+)\]\((https?://[^)\s]+)\)",
+               r'<a href="\2" style="color:#2f6fb3;text-decoration:underline;">\1</a>', t)
     return t
 
 

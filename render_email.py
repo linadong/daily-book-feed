@@ -62,7 +62,8 @@ def render_book(book, idx, total):
         lines.append("### 热门划线")
         lines.append("")
         for h in highlights[:5]:
-            text = (h.get("text") or "").strip()
+            # 接口返回的划线有时从句子中间截断，开头会带一个孤立的标点
+            text = (h.get("text") or "").strip().lstrip("。，、；：！？… ")
             if not text:
                 continue
             lines.append("> " + text.replace("\n", " "))
